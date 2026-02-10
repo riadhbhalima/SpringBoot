@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<link href="/css/bootstrap.min.css" rel="stylesheet">
+	<title>Gestion Clients</title>
+</head>
+<body>
+	<h1>Add new Client</h1>
+	
+	<form th:action="@{save}" method="post">
+		<table>
+			<tr>
+				<td><label for="nom">Nom:</label></td>
+				<td><input type="text" name="nom" required></td>
+			</tr>
+			<tr>
+				<td><label for="prenom">Prénom:</label></td>
+				<td><input type="text" name="prenom" required></td>
+			</tr>
+			<tr>
+				<td colspan="2" style="text-align: center;">
+					<button type="submit" class="btn btn-primary">save</button>
+				</td>
+			</tr>
+		</table>
+	</form>
+	<form th:action="@{search}" method="post">
+			search:<input type="text" name="search" />
+			<button type="submit" class="btn btn-success">Search</button>
+		</form>
+	<hr />
+
+	<h1>List of Clients</h1>
+
+	<table class="table table-striped">
+		<tr>
+			<th>ID</th>
+			<th>Nom</th>
+			<th>Prénom</th>
+			<th>Delete</th>
+			<th>Delete-Ajax</th>
+			<th>Edit</th>
+		</tr>
+		<tr th:id="${client.id}" th:each="client: ${clients}">
+			<td th:text="${client.id}" />
+			<td th:text="${client.nom}" />
+			<td th:text="${client.prenom}" />
+			<td><a th:href="'/clients/delete/'+${client.id}">Delete</a></td>
+			<td><a th:href="'javascript:deleteClient('+${client.id}+')'">Delete-Ajax</a></td>
+			<td>
+				<form th:action="@{edit}" method="post">
+					<input type="hidden" name="id" th:value="${client.id}" />
+					<button type="submit" class="btn btn-success">Edit</button>
+				</form>
+			</td>
+		</tr>
+	</table>
+	<script src="/js/bootstrap.bundle.min.js"></script>
+	<script src="/js/jquery-3.7.1.min.js"></script>
+	<script src="/js/sweetalert.min.js"></script>
+	<script src="/js/clients.js"></script>
+</body>
+</html>

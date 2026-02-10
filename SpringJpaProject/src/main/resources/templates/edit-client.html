@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<link href="/css/bootstrap.min.css" rel="stylesheet">
+	<title>Edit Client</title>
+</head>
+
+<body>
+	<h1>Edit Client</h1>
+	<form th:action="@{update}" method="post">
+		<table>
+			<tr>
+				<td><label for="id">ID:</label></td>
+				<td><input type="text" name="id" readonly th:value="${client.id}"></td>
+			</tr>
+			<tr>
+				<td><label for="nom">Nom:</label></td>
+				<td><input type="text" name="nom" required th:value="${client.nom}"></td>
+			</tr>
+			<tr>
+				<td><label for="prenom">Prénom:</label></td>
+				<td><input type="text" name="prenom" required th:value="${client.prenom}"></td>
+			</tr>
+			<tr>
+				<td colspan="2" style="text-align: center;">
+					<button type="submit" class="btn btn-primary">update</button>
+				</td>
+			</tr>
+		</table>
+	</form>
+	<hr />
+	<script src="/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

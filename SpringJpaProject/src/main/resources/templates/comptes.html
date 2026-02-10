@@ -1,0 +1,66 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<link href="/css/bootstrap.min.css" rel="stylesheet">
+	<title>Gestion Comptes</title>
+</head>
+
+<body>
+	<h1>Add new Compte</h1>
+	
+	<form th:action="@{save}" method="post">
+		<table>
+			<tr>
+				<td><label for="solde">solde:</label></td>
+				<td><input type="text"  name="solde" required></td>
+			</tr>
+			<tr>
+				<td><label for="nomClient">id du Client:</label></td>
+				<td><input type="number" name="idClient" required></td>
+			</tr>
+			<tr>
+				<td colspan="2" style="text-align: center;">
+					<button type="submit" class="btn btn-primary">save</button>
+				</td>
+			</tr>
+		</table>
+	</form>
+	<form th:action="@{search}" method="post">
+			search:<input type="text" name="search" />
+			<button type="submit" class="btn btn-success">Search</button>
+		</form>
+	<hr />
+
+	<h1>List of Compte</h1>
+
+	<table class="table table-striped">
+		<tr>
+			<th>Rib</th>
+			<th>Solde</th>
+			<th>NomClient</th>
+			<th>Delete</th>
+			<th>Delete-Ajax</th>
+			<th>Edit</th>
+		</tr>
+		<tr th:id="${compte.rib}" th:each="compte: ${comptes}">
+			<td th:text="${compte.rib}" />
+			<td th:text="${compte.solde}" />
+			<td th:text="${compte.client.nom}" />
+			<td><a th:href="'/comptes/delete/'+${compte.rib}">Delete</a></td>
+			<td><a th:href="'javascript:deleteCompte('+${compte.rib}+')'">Delete-Ajax</a></td>
+			<td>
+				<form th:action="@{edit}" method="post">
+					<input type="hidden" name="rib" th:value="${compte.rib}" />
+					<button type="submit" class="btn btn-success">Edit</button>
+				</form>
+			</td>
+		</tr>
+	</table>
+	<script src="/js/bootstrap.bundle.min.js"></script>
+	<script src="/js/jquery-3.7.1.min.js"></script>
+	<script src="/js/sweetalert.min.js"></script>
+	<script src="/js/comptes.js"></script>
+</body>
+</body>
+
+</html>

@@ -1,0 +1,81 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<link href="/css/bootstrap.min.css" rel="stylesheet">
+	<title>Une page</title>
+</head>
+
+<body>
+	<h1 th:text="#{welcome.message}">Welcome</h1>
+	<h2>Add new Student</h2>
+
+	<form th:action="@{save}" method="post">
+		<table>
+			<tr>
+				<td><label for="nom" th:text="#{msg.name}">Name:</label></td>
+				<td><input type="text" id="name" name="name" required></td>
+			</tr>
+			<tr>
+				<td><label for="gender" th:text="#{msg.gender}">Gender:</label></td>
+				<td>
+					<input type="radio" name="gender" value="M" id="genderM" />
+					<label for="genderM">M</label>
+					<input type="radio" name="gender" value="F" id="genderF" />
+					<label for="genderF">F</label>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" style="text-align: center;">
+					<button type="submit" class="btn btn-primary">save</button>
+				</td>
+			</tr>
+		</table>
+	</form>
+
+	<hr />
+	<form th:action="@{search}" method="post">
+		search:<input type="text" name="search" />
+		<button type="submit" class="btn btn-success">Search</button>
+	</form>
+	<hr />
+
+	<h2>List of Students</h2>
+
+	<table class="table table-striped">
+		<tr>
+			<th>Id</th>
+			<th>Name</th>
+			<th>Gender</th>
+			<th>Delete</th>
+			<th>Delete-Ajax</th>
+			<th>Edit</th>
+		</tr>
+		<tr th:id="${student.id}" th:each="student: ${students}">
+			<td th:text="${student.id}" />
+			<td th:text="${student.name}" />
+			<td th:switch="${student.gender}">
+				<span th:case="'M'" th:text="Male" />
+				<span th:case="'F'" th:text="Female" />
+			</td>
+
+			<td><a th:href="'/students/delete/'+${student.id}">Delete</a></td>
+			<td><a th:href="'javascript:deleteStudent('+${student.id}+')'">Delete-Ajax</a></td>
+			<td>
+				<form th:action="@{edit}" method="post">
+					<input type="hidden" name="id" th:value="${student.id}" />
+					<button type="submit" class="btn btn-success">Edit</button>
+				</form>
+			</td>
+		</tr>
+	</table>
+
+	<footer th:replace="~{footer-fragment :: footer}"></footer>
+
+	<script src="/js/bootstrap.bundle.min.js"></script>
+	<script src="/js/jquery-3.7.0.min.js"></script>
+	<script src="/js/sweetalert.min.js"></script>
+	<script src="/js/students.js"></script>
+</body>
+</body>
+
+</html>

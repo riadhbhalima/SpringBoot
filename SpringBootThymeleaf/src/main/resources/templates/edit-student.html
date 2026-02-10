@@ -1,0 +1,50 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<link href="/css/bootstrap.min.css" rel="stylesheet">
+	<title>Une page</title>
+</head>
+
+<body>
+	<h1>Edit Student</h1>
+	<form th:object="${student}" th:action="@{update}" method="post">
+		<table>
+			<tr>
+				<td><label for="id" th:text="#{msg.id}">Id:</label></td>
+				<td><input type="text" readonly th:field="*{id}"></td>
+			</tr>
+			<tr>
+				<td><label for="nom" th:text="#{msg.name}">Name:</label></td>
+				<td><input type="text" required th:field="*{name}"
+						th:styleappend="${#fields.hasErrors('name')} ? 'border: 2px solid red !important;' : ''"></td>
+				<td>
+					<div class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color: #dc3545;">
+				</td>
+			
+				</div>
+			</tr>
+			<tr>
+				<td><label for="gender" th:text="#{msg.gender}">Gender:</label></td>
+				<td>
+					<input type="radio" th:field="*{gender}" value="M" />
+					<label for="genderM">M</label>
+
+					<input type="radio" th:field="*{gender}" value="F" />
+					<label for="genderF">F</label>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" style="text-align: center;">
+					<button type="submit" class="btn btn-primary">update</button>
+				</td>
+			</tr>
+		</table>
+	</form>
+	<hr />
+
+
+	<script src="/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
